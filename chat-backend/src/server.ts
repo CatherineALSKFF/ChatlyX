@@ -31,12 +31,49 @@ const server = new WebSocketServer({ port: PORT });
 let clients: Client[] = [];
 let rooms: Room[] = [];
 
+// Initialize the default "Main Chat" room
+const mainChatRoom: Room = {
+  id: uuidv4(),
+  name: 'Main Chat',
+  messages: [],
+  participants: [],
+  unreadCount: 0,
+};
+rooms.push(mainChatRoom);
+
 server.on('connection', (socket: WebSocket) => {
   const clientId = uuidv4();
   const client: Client = { id: clientId, username: '', socket };
   clients.push(client);
 
   console.log(`Client connected: ${clientId}`);
+
+  // Automatically add the user to the default "Main Chat" room
+  mainChatRoom.participants.push(clientId);
+  client.roomId = mainChatRoom.id;
+
+  // Notify the new user about the default room
+  socket.send(
+    JSON.stringify({
+      type: 'room-joined',
+      roomId: mainChatRoom.id,
+      roomName: mainChatRoom.name,
+      messages: mainChatRoom.messages,
+      participants: mainChatRoom.participants.map((id) => {
+        const participant = clients.find((c) => c.id === id);
+        return participant ? { id: participant.id, username: participant.username } : null;
+      }),
+    })
+  );
+
+  // Notify all participants in the room about the updated participant list
+  broadcastToRoom(mainChatRoom.id, {
+    type: 'room-participants-updated',
+    participants: mainChatRoom.participants.map((id) => {
+      const participant = clients.find((c) => c.id === id);
+      return participant ? { id: participant.id, username: participant.username } : null;
+    }),
+  });
 
   socket.on('message', (data: string) => {
     try {
@@ -172,7 +209,10 @@ server.on('connection', (socket: WebSocket) => {
           break;
         }
 
-        case 'edit-message': {
+        // Other cases for editing and deleting messages...
+
+
+                case 'edit-message': {
           const user = clients.find((c) => c.id === clientId);
           if (!user || !user.roomId) {
             socket.send(
@@ -229,6 +269,7 @@ server.on('connection', (socket: WebSocket) => {
           }
           break;
         }
+
 
         default: {
           socket.send(JSON.stringify({ type: 'error', message: 'Unsupported action.' }));

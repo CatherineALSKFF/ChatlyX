@@ -1,0 +1,21 @@
+node_modules/
+.env
+dist/
+build/
+
+
+# Ignore node_modules for both frontend and backend
+chat-backend/node_modules/
+chat-frontend/node_modules/
+
+# Ignore build/dist folders
+chat-backend/build/
+chat-frontend/build/
+chat-backend/dist/
+chat-frontend/dist/
+
+# Ignore environment files
+chat-backend/.env
+chat-frontend/.env
+
+.DS_Store
