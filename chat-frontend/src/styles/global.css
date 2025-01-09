@@ -77,8 +77,9 @@ button {
   .sidebarContainer {
     width: 25%; /* Sidebar takes 35% of the width */
     height: 100%; /* Full height for the sidebar */
-    background: linear-gradient(90deg, #007bff, #0056b3);
+    /* background: linear-gradient(90deg, #007bff, #0056b3); */
     overflow-y: auto; /* Allow scrolling if content exceeds height */
+    
   }
   
   .contentContainer {

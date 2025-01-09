@@ -5,6 +5,8 @@
   gap: 15px;
   max-height: 100vh;
   overflow-y: auto;
+  margin-bottom:40px ;
+
 }
 
 .message {

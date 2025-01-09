@@ -1,63 +1,140 @@
 .sidebar {
-  /* width: 250px; */
   height: 100vh;
-  background: linear-gradient(90deg, #007bff, #0056b3);
-  color: white;
+  background: #f9f9f9;
+  color: #333;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  position: relative; /* Changed from fixed to relative for better layout integration */
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  
+  box-shadow: 5px 0 9px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #e0e0e0;
+}
+
+.title {
+  font-size: 1.5rem;
+  color: #007bff;
+  /* margin-bottom: 20px; */
+  padding: 20px 30px;
+  font-weight: bolder;
+}
+
+.separator {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 10px 0;
+}
+
+.sectionSeparator {
+  border: 0;
+  border-top: 2px solid #ddd;
+  margin: 20px 0;
 }
 
 .section {
   margin-bottom: 20px;
+  
 }
 
-.section h3 {
-  margin: 0 0 10px;
-  font-size: 1.2rem;
+.roomHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+}
+
+.plusIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.plusIcon:hover {
+  transform: scale(1.1);
+}
+
+.createRoom {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+}
+
+.roomInput {
+  flex: 1;
+  font-size: 1rem;
+  box-sizing: border-box;
+  padding: 10px 30px;
+  border-radius: 30px;
+  border: none;
+
+}
+
+.createRoomButton {
+  padding: 8px 12px; 
+  border: none;
+  background-color: #4c9aee;
   color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.createRoomButton:hover {
+  background-color: #0056b3;
+}
+ 
+.createRoomButton:active {
+  transform: scale(0.95);
 }
 
 .list {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  
 }
 
 .listItem {
-  padding: 10px;
+  padding: 15px 30px;
   cursor: pointer;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Updated for better contrast */
-  color: white;
+  border-bottom: 1px solid #ddd;
   transition: background-color 0.3s ease, color 0.3s ease;
+  
+}
+
+.listItem:last-child {
+  border-bottom: none;
 }
 
 .listItem:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(90deg, #1f65ae, #6fb2fb);
 }
 
 .active {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  background: linear-gradient(90deg, #6fb2fb, #1f65ae);
+  /* color: white; */
+  
+  padding: 30xp 0;
 }
 
 .unread {
   font-size: 0.9rem;
   font-weight: bold;
-  color: #ff0000;
+  color: #767f88;
   margin-left: 10px;
 }
 
-/* For mobile view, hide the sidebar */
-@media (max-width: 768px) {
-  .sidebar {
-    display: none; /* Sidebar hidden on mobile */
-  }
+.participant {
+  padding: 10px 30px;
 }
 
-/* Additional styles for smooth integration */
-.showSidebar {
-  display: block; /* Utility class to show the sidebar if toggled manually */
+.meTag {
+  font-size: 0.8rem;
+  color: #767f88;
+  margin-left: 5px;
+}
+
+h3{
+  padding: 10px 30px;
 }

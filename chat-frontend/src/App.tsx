@@ -33,6 +33,7 @@ const App: React.FC = () => {
   const [isUsernameSet, setIsUsernameSet] = useState(false);
   const [rooms, setRooms] = useState<Room[]>([]);
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null);
+  const [newRoomName, setNewRoomName] = useState('');
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editingText, setEditingText] = useState<string>('');
   const [view, setView] = useState<'participants' | 'chat'>('chat');
@@ -114,6 +115,13 @@ const App: React.FC = () => {
     }
   };
 
+  const createRoom = () => {
+    if (ws.current && ws.current.readyState === WebSocket.OPEN && newRoomName.trim()) {
+      ws.current.send(JSON.stringify({ type: 'create-room', roomName: newRoomName }));
+      setNewRoomName('');
+    }
+  };
+
   const sendMessage = (text: string) => {
     if (ws.current && ws.current.readyState === WebSocket.OPEN && currentRoom) {
       ws.current.send(JSON.stringify({ type: 'new-message', text, roomId: currentRoom.id }));
@@ -125,10 +133,15 @@ const App: React.FC = () => {
       {isUsernameSet && !isMobile && (
         <div className="sidebarContainer">
           <Sidebar
+
             rooms={rooms}
+            currentUsername={username}
             participants={participants}
             currentRoom={currentRoom}
             joinRoom={joinRoom}
+            createRoom={createRoom}
+            newRoomName={newRoomName}
+            setNewRoomName={setNewRoomName}
           />
         </div>
       )}
