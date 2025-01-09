@@ -108,12 +108,15 @@
 }
 
 .listItem:hover {
-  background: linear-gradient(90deg, #1f65ae, #6fb2fb);
+  background-color: #d9e6f5;
+  border-radius: 12px;
 }
 
 .active {
-  background: linear-gradient(90deg, #6fb2fb, #1f65ae);
+  /* background: linear-gradient(90deg, #a3b4c7, #dee4eb); */
   /* color: white; */
+  background-color: #d9e6f5;
+  border-radius: 12px;
   
   padding: 30xp 0;
 }

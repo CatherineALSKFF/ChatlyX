@@ -1,3 +1,7 @@
+/* ------------------------- */
+/* Message List Styles       */
+/* ------------------------- */
+
 .messageList {
   padding: 3px;
   display: flex;
@@ -10,18 +14,10 @@
 
 .messageRow {
   display: flex;
-  justify-content: flex-start; /* Default alignment for otherUser */
+  justify-content: flex-start;
   position: relative;
   width: 100%;
-  padding: 5px 0; /* Adds spacing between rows */
-}
-
-.messageRow:hover .menuIcon {
-  opacity: 1; /* Shows the menu icon on row hover */
-}
-
-.currentUserRow {
-  justify-content: flex-end; /* Aligns currentUser messages to the right */
+  padding: 5px 0;
 }
 
 .message {
@@ -35,37 +31,26 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.currentUserRow {
+  justify-content: flex-end;
+}
+
 .currentUser {
   background-color: #d9edf7;
 }
 
-.currentUser::before {
-  content: '';
-  position: absolute;
-  top: 10px;
-  right: -10px;
-  width: 0;
-  height: 0;
-  border-left: 10px solid #d9edf7;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+.messageRow .currentUser:hover .menuIcon {
+  opacity: 0.7;
+  
 }
 
 .otherUser {
   background-color: #e9ecef;
 }
 
-.otherUser::before {
-  content: '';
-  position: absolute;
-  top: 10px;
-  left: -10px;
-  width: 0;
-  height: 0;
-  border-right: 10px solid #e9ecef;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-}
+/* ------------------------- */
+/* Menu Icon and Options     */
+/* ------------------------- */
 
 .menuIcon {
   position: absolute;
@@ -74,36 +59,29 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  opacity: 0;
+  opacity: 0.5;
   transition: opacity 0.3s ease;
+  left: -30px;
+  
+  
 }
-
-.currentUserRow:hover .menuIcon {
-  left: 50px; /* 50px away from the message container */
-}
-
-.otherUserRow:hover .menuIcon {
-  right: 50px; /* 50px away from the message container */
-}
-
-
 
 
 .menuOptions {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 60px; /* Position the menu relative to the message container */
-  background-color: rgba(0, 0, 0, 0.8); /* Black background with low opacity */
-  color: white; /* White text color */
+  left: -130px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
   border-radius: 5px;
   padding: 10px;
-  z-index: 100; /* Ensures it appears on top of other elements */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Adds subtle shadow */
+  z-index: 100;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   gap: 5px;
-  min-width: 120px; /* Ensures enough space for options */
+  min-width: 120px;
 }
 
 .menuOptions button {
@@ -118,20 +96,126 @@
 }
 
 .menuOptions button:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Highlight on hover */
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Disabled Button */
+.disabledButton {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ------------------------- */
+/* Sender Name and Timestamp */
+/* ------------------------- */
+
+.senderName {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #000;
+  margin-bottom: 4px;
+}
+
+.timestampHover {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgb(166, 164, 164);
+  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+}
+
+.messageRow:hover .timestampHover {
+  display: block;
+}
+
+/* ------------------------- */
+/* Edit Popup Styles         */
+/* ------------------------- */
+
+.editContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(0, -50%); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  width: 100%;
+  height: auto;
+  padding: 10px 0;
+}
+
+.editPopup {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+}
+
+/* Close Icon for Edit Popup */
+.popupCloseIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 0.5px #a0a0a2 solid;
+  border-radius: 50%;
+  padding: 3px;
+}
+
+.popupCloseIcon:hover {
+  transform: scale(1.1);
+}
+
+/* ------------------------- */
+/* Edit Input Styles         */
+/* ------------------------- */
+
+.editInput {
+  width: 90%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.editInput:focus {
+  border-color: #84cce6;
+  box-shadow: 0 0 8px rgba(107, 186, 204, 0.5);
+}
+
+/* ------------------------- */
+/* Save Button               */
+/* ------------------------- */
+
+.saveButton {
+  background-color: #8abadc;
+  color: #fff;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.saveButton:hover {
+  background-color: #8fd1f4;
+  box-shadow: 0 4px 10px rgba(60, 72, 80, 0.4);
 }
 
 
-
-
-
-
-
-
-
-
-
-
-.senderName{
-  font-weight: bolder;
-}

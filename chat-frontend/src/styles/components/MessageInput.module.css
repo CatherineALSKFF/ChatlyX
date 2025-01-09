@@ -1,58 +1,56 @@
+/* Layout for the main content container */
 .contentContainer {
-    flex: 1;
-    position: relative; /* Ensures child absolute positioning is scoped here */
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto; /* Enable scrolling for messages */
-    /* background-color: red;  */
-  
-  }
-  
-  .inputContainer {
-    position: absolute; /* Sticks to the bottom of the parent container */
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    padding: 10px;
-    z-index: 1000; /* Keeps it on top of content */
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
 
- 
-  }
-  
-  .messageInput {
-    flex: 1;
-    padding: 40px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    transition: border-color 0.3s ease;
+/* Styles for the input field and send button container */
+.inputContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  z-index: 1000;
+}
 
-  }
-  
-  .messageInput:focus {
-    border-color: #007bff;
-  }
-  
-  .sendButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .sendButton:hover {
-    background-color: #0056b3;
-  }
-  
-  .sendButton:active {
-    transform: scale(0.95);
-  }
-  
+/* Styles for the text input field */
+.messageInput {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.messageInput:focus {
+  border-color: #007bff;
+}
+
+/* Styles for the send button */
+.sendButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sendButton:hover {
+  background-color: #0056b3;
+}
+
+.sendButton:active {
+  transform: scale(0.95);
+}
