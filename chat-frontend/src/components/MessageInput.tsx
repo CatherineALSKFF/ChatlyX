@@ -23,17 +23,22 @@ const MessageInput: React.FC<MessageInputProps> = ({ sendMessage }) => {
 
   return (
     <div className={styles.inputContainer}>
-      <input
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        onKeyPress={handleKeyPress}
-        placeholder="Type a message..."
-        className={styles.messageInput}
-      />
-      <button onClick={handleSend} className={styles.sendButton}>
-        Send
-      </button>
+      <div className={styles.inputWrapper}>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyPress={handleKeyPress}
+          placeholder="Type a message..."
+          className={styles.messageInput}
+        />
+        <img
+          src="/icons/send-icon.svg"
+          alt="Send"
+          className={styles.sendIcon}
+          onClick={handleSend}
+        />
+      </div>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+/* Body Styling */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -5,134 +6,104 @@ body {
   background-color: #f9f9f9;
 }
 
+/* Headings */
 h1, h2, h3 {
   margin: 0;
 }
 
+/* Button Global Styling */
 button {
   cursor: pointer;
 }
 
-  
-  .usernameContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-  
-  .usernameContainer h1 {
-    margin-bottom: 20px;
-  }
-  
-  .usernameContainer input {
-    padding: 10px;
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
-  
-  .usernameContainer button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+/* Username Container Styling */
+.usernameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
 
+.usernameContainer h1 {
+  margin-bottom: 20px;
+}
 
+.usernameContainer input {
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
 
+.usernameContainer button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /* Global container layout */
+/* App Container - Global Layout */
 .appContainer {
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* Full height layout */
-    width: 100vw; /* Full width layout */
-    overflow: hidden;
-  }
-  
-  /* Desktop layout */
-  .appContainer.desktop {
-    flex-direction: row; /* Sidebar and content side by side */
-  }
-  
-  .sidebarContainer {
-    width: 25%; /* Sidebar takes 35% of the width */
-    height: 100%; /* Full height for the sidebar */
-    /* background: linear-gradient(90deg, #007bff, #0056b3); */
-    overflow-y: auto; /* Allow scrolling if content exceeds height */
-    
-  }
-  
-  .contentContainer {
-    flex: 1; /* Take the remaining 65% of the width */
-    display: flex;
-    flex-direction: column;
-    background-color: #f9f9f9;
-    overflow-y: auto; /* Allow scrolling for content */
-    position: relative;
-  }
-  
-  /* Mobile layout adjustments */
-  .appContainer.mobile {
-    flex-direction: column; /* Stack layout for mobile */
-  }
-  
-  .usernameContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%; /* Center content on mobile */
-  }
-  
-  /* Main content styling */
-  .mainContent {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto; /* Scroll if content exceeds viewport */
-  }
-  
-  /* Utility classes */
-  input[type="text"], button {
-    font-size: 1rem;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height layout */
+  width: 100vw; /* Full width layout */
+  overflow: hidden;
+}
 
+/* Desktop Layout */
+.appContainer.desktop {
+  flex-direction: row; /* Sidebar and content side by side */
+}
 
+/* Sidebar Styling */
+.sidebarContainer {
+  width: 25%;
+  height: 100%; /* Full height for the sidebar */
+  overflow-y: auto; /* Allow scrolling if content exceeds height */
+}
 
+/* Content Container Styling */
+.contentContainer {
+  flex: 1; /* Takes remaining space */
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  overflow-y: auto; /* Allow scrolling for content */
+  position: relative;
+}
 
+/* Mobile Layout Adjustments */
+.appContainer.mobile {
+  flex-direction: column; /* Stack layout for mobile */
+}
 
+/* Main Content Styling */
+.mainContent {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto; /* Scroll if content exceeds viewport */
+}
+
+/* Utility Classes */
+input[type="text"], button {
+  font-size: 1rem;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

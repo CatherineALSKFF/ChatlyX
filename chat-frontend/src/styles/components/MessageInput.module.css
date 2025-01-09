@@ -1,56 +1,50 @@
-/* Layout for the main content container */
-.contentContainer {
-  flex: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-
-/* Styles for the input field and send button container */
+/* Input container styles */
 .inputContainer {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  display: flex;
-  gap: 10px;
-  align-items: center;
   padding: 10px;
   z-index: 1000;
+  display: flex;
+  justify-content: center;
+
 }
 
-/* Styles for the text input field */
+/* Wrapper for the input field and send icon */
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Rounded input field */
 .messageInput {
   flex: 1;
-  padding: 10px;
+  padding: 15px 50px 15px 15px; /* Add padding for the icon */
   font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 30px; /* Ensures the input is rounded */
   outline: none;
   transition: border-color 0.3s ease;
+  background-color: white;
 }
 
 .messageInput:focus {
   border-color: #007bff;
 }
 
-/* Styles for the send button */
-.sendButton {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 14px;
+/* Send icon styling */
+.sendIcon {
+  position: absolute;
+  right: 15px; /* Position inside the input field */
+  width: 24px;
+  height: 24px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
-.sendButton:hover {
-  background-color: #0056b3;
-}
-
-.sendButton:active {
-  transform: scale(0.95);
+.sendIcon:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
 }
