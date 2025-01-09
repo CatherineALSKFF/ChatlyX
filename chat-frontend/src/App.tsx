@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import ParticipantsList from './components/ParticipantsList';
 import MessageInput from './components/MessageInput';
 import MessageList from './components/MessageList';
-import RoomList from './components/RoomList';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import './styles/global.css';
@@ -34,12 +33,12 @@ const App: React.FC = () => {
   const [isUsernameSet, setIsUsernameSet] = useState(false);
   const [rooms, setRooms] = useState<Room[]>([]);
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null);
-  const [newRoomName, setNewRoomName] = useState('');
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editingText, setEditingText] = useState<string>('');
   const [view, setView] = useState<'participants' | 'chat'>('chat');
-  const ws = React.useRef<WebSocket | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  const ws = React.useRef<WebSocket | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -109,13 +108,6 @@ const App: React.FC = () => {
     }
   };
 
-  const createRoom = () => {
-    if (ws.current && ws.current.readyState === WebSocket.OPEN && newRoomName.trim()) {
-      ws.current.send(JSON.stringify({ type: 'create-room', roomName: newRoomName }));
-      setNewRoomName('');
-    }
-  };
-
   const joinRoom = (roomId: string) => {
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
       ws.current.send(JSON.stringify({ type: 'join-room', roomId }));
@@ -128,48 +120,40 @@ const App: React.FC = () => {
     }
   };
 
-  const startEditingMessage = (id: string, text: string) => {
-    setEditingMessageId(id);
-    setEditingText(text);
-  };
-
-  const saveEditedMessage = () => {
-    if (ws.current && ws.current.readyState === WebSocket.OPEN && editingMessageId) {
-      ws.current.send(JSON.stringify({ type: 'edit-message', id: editingMessageId, text: editingText }));
-      setEditingMessageId(null);
-      setEditingText('');
-    }
-  };
-
-  const deleteMessage = (id: string) => {
-    if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-      ws.current.send(JSON.stringify({ type: 'delete-message', id }));
-    }
-  };
-
   return (
-    <div style={{ display: 'flex' }}>
+    <div className={`appContainer ${isMobile ? 'mobile' : 'desktop'}`}>
       {isUsernameSet && !isMobile && (
-        <Sidebar
-          rooms={rooms}
-          participants={participants}
-          currentRoom={currentRoom}
-          joinRoom={joinRoom}
-        />
+        <div className="sidebarContainer">
+          <Sidebar
+            rooms={rooms}
+            participants={participants}
+            currentRoom={currentRoom}
+            joinRoom={joinRoom}
+          />
+        </div>
       )}
-      <div style={{ flex: 1 }}>
+      <div className={`contentContainer ${!isMobile ? 'withSidebar' : ''}`}>
         {!isUsernameSet ? (
-          <div>
+          <div className="usernameContainer">
             <h1>Choose a Username</h1>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <button onClick={sendUsername}>Join</button>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                sendUsername();
+              }}
+            >
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter your username"
+                required
+              />
+              <button type="submit">Join</button>
+            </form>
           </div>
         ) : (
-          <div>
+          <>
             {currentRoom && isMobile && (
               <Navbar
                 currentRoom={currentRoom.name}
@@ -178,27 +162,50 @@ const App: React.FC = () => {
               />
             )}
             {currentRoom && (
-              <>
+              <div className="mainContent">
                 {view === 'participants' ? (
                   <ParticipantsList participants={participants} />
                 ) : (
                   <>
                     <MessageList
                       messages={messages}
-                      startEditingMessage={startEditingMessage}
-                      deleteMessage={deleteMessage}
+                      startEditingMessage={(id, text) => {
+                        setEditingMessageId(id);
+                        setEditingText(text);
+                      }}
+                      deleteMessage={(id) => {
+                        if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+                          ws.current.send(JSON.stringify({ type: 'delete-message', id }));
+                        }
+                      }}
                       editingMessageId={editingMessageId}
                       editingText={editingText}
                       setEditingText={setEditingText}
-                      saveEditedMessage={saveEditedMessage}
+                      saveEditedMessage={() => {
+                        if (
+                          ws.current &&
+                          ws.current.readyState === WebSocket.OPEN &&
+                          editingMessageId
+                        ) {
+                          ws.current.send(
+                            JSON.stringify({
+                              type: 'edit-message',
+                              id: editingMessageId,
+                              text: editingText,
+                            })
+                          );
+                          setEditingMessageId(null);
+                          setEditingText('');
+                        }
+                      }}
                       currentUsername={username}
                     />
                     <MessageInput sendMessage={sendMessage} />
                   </>
                 )}
-              </>
+              </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>

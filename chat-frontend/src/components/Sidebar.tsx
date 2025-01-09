@@ -11,6 +11,7 @@ type SidebarProps = {
 const Sidebar: React.FC<SidebarProps> = ({ rooms, participants, currentRoom, joinRoom }) => {
   return (
     <div className={styles.sidebar}>
+      <div className={styles.title}>ChatlyX</div>
       <div className={styles.section}>
         <h3>Rooms</h3>
         <ul className={styles.list}>
@@ -30,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ rooms, participants, currentRoom, joi
         <h3>Participants</h3>
         <ul className={styles.list}>
           {participants.map((participant) => (
-            <li key={participant.id} className={styles.listItem}>
+            <li key={participant.id} className={styles.participant}>
               {participant.username}
             </li>
           ))}

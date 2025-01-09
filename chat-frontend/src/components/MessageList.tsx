@@ -37,7 +37,7 @@ const MessageList: React.FC<MessageListProps> = ({
         <div
           key={msg.id}
           className={`${styles.message} ${
-            msg.user === currentUsername ? styles.currentUser : ''
+            msg.user === currentUsername ? styles.currentUser : styles.otherUser
           }`}
         >
           {editingMessageId === msg.id ? (
@@ -60,8 +60,8 @@ const MessageList: React.FC<MessageListProps> = ({
             </div>
           ) : (
             <div>
+              <p className={styles.senderName}>{msg.user}</p>
               <p className={styles.messageContent}>
-                <strong>{new Date(msg.timestamp).toLocaleTimeString()}</strong>:{' '}
                 {msg.deleted ? (
                   <span className={styles.deletedMessage}>Message deleted</span>
                 ) : (
@@ -69,8 +69,8 @@ const MessageList: React.FC<MessageListProps> = ({
                 )}
                 {msg.edited && <span className={styles.editedTag}> (edited)</span>}
               </p>
-              <p className={styles.messageMeta}>
-                <em>- {msg.user}</em>
+              <p className={styles.timestamp}>
+                {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </p>
               {msg.user === currentUsername && !msg.deleted && (
                 <div className={styles.actionButtons}>

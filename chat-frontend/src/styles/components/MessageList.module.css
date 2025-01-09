@@ -1,82 +1,122 @@
 .messageList {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  
-  .message {
-    background-color: #f1f1f1;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .currentUser {
-    background-color: #d9edf7;
-    align-self: flex-end;
-  }
-  
-  .messageContent {
-    margin: 0;
-    font-size: 14px;
-  }
-  
-  .deletedMessage {
-    font-style: italic;
-    color: #888;
-  }
-  
-  .editedTag {
-    font-size: 12px;
-    color: #007bff;
-  }
-  
-  .messageMeta {
-    font-size: 12px;
-    color: #666;
-    margin-top: 5px;
-  }
-  
-  .actionButtons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .editButton,
-  .deleteButton,
-  .saveButton,
-  .cancelButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .editButton:hover,
-  .deleteButton:hover,
-  .saveButton:hover,
-  .cancelButton:hover {
-    background-color: #0056b3;
-  }
-  
-  .editContainer {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  
-  .editInput {
-    flex: 1;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.message {
+  position: relative;
+  width: 60%; /* Standard width for all messages */
+  max-width: 500px; /* Ensures it doesn't grow too large on wide screens */
+  min-width: 200px; /* Ensures minimum readable size */
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.currentUser {
+  align-self: flex-end;
+  background-color: #d9edf7;
+}
+
+.currentUser::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: -10px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid #d9edf7;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.otherUser {
+  align-self: flex-start;
+  background-color: #e9ecef;
+}
+
+.otherUser::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-right: 10px solid #e9ecef;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.senderName {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.messageContent {
+  margin: 0;
+  font-size: 14px;
+}
+
+.deletedMessage {
+  font-style: italic;
+  color: #888;
+}
+
+.editedTag {
+  font-size: 12px;
+  color: #007bff;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #666;
+  text-align: right;
+  margin-top: 5px;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.editButton,
+.deleteButton,
+.saveButton,
+.cancelButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.editButton:hover,
+.deleteButton:hover,
+.saveButton:hover,
+.cancelButton:hover {
+  background-color: #0056b3;
+}
+
+.editContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.editInput {
+  flex: 1;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

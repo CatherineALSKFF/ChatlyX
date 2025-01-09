@@ -1,10 +1,24 @@
-.inputContainer {
+.contentContainer {
+    flex: 1;
+    position: relative; /* Ensures child absolute positioning is scoped here */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Enable scrolling for messages */
+    /* background-color: red;  */
+  
+  }
+  
+  .inputContainer {
+    position: absolute; /* Sticks to the bottom of the parent container */
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: flex;
     gap: 10px;
     align-items: center;
     padding: 10px;
-    background-color: #f1f1f1;
-    border-top: 1px solid #ddd;
+    z-index: 1000; /* Keeps it on top of content */
+ 
   }
   
   .messageInput {

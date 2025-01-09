@@ -1,6 +1,6 @@
-# Chatly
+# ChatlyX
 
-Chatly is a lightweight real-time chat application designed as part of a frontend developer homework exercise. It features real-time messaging, user tracking, and responsive design, with a clean and functional interface adhering to the provided mockups.
+ChatlyX is a lightweight real-time chat application designed as part of a frontend developer homework exercise. It features real-time messaging, user tracking, and responsive design, with a clean and functional interface adhering to the provided mockups.
 
 ---
 
