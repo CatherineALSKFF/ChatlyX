@@ -208,6 +208,7 @@ useEffect(() => {
                 view={view}
                 setView={setView}
                 toggleRoomList={toggleRoomList}
+                participants={participants}
               />
             )}
             {isMobile && isRoomListOpen && (

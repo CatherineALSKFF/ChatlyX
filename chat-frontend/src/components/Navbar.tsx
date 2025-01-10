@@ -7,11 +7,18 @@ type Room = {
   unreadCount: number;
 };
 
+type Participant = {
+  id: string;
+  username: string;
+};
+
 type NavbarProps = {
   currentRoom: Room | null;
+  participants: Participant[];
   view: 'participants' | 'chat';
   setView: (view: 'participants' | 'chat') => void;
   toggleRoomList: () => void;
+  
 };
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -19,6 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({
   view,
   setView,
   toggleRoomList,
+  participants,
 }) => {
   return (
     <div className={styles.navbar} aria-label="Main navigation bar">
@@ -41,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({
           onClick={() => setView('participants')}
           aria-label="Switch to participants view"
         >
-          Participants
+          Participants ({participants.filter(p => p.username).length})
         </span>
         <span
           className={`${styles.navButton} ${styles.right} ${

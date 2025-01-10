@@ -98,7 +98,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Participants Section */}
       <div className={styles.section} aria-labelledby="participants-heading">
-        <h3>Participants</h3>
+        <h3>  Participants ({participants.filter(p => p.username).length})</h3>
         <ul className={styles.list} aria-label="List of participants">
           {participants.map((participant) => (
             <li key={participant.id} className={styles.participant}  aria-label={`${participant.username} ${participant.username === currentUsername ? '(You)' : ''}`}>

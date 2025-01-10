@@ -4,8 +4,8 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     color: white;
-    backdrop-filter: blur(7px); 
-  -webkit-backdrop-filter: blur(7px); 
+    /* backdrop-filter: blur(7px); 
+  -webkit-backdrop-filter: blur(7px);  */
   }
   
   /* Add Icon Styling */

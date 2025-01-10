@@ -13,7 +13,7 @@ const ParticipantsList: React.FC<ParticipantsListProps> = ({ participants }) => 
   return (
     <div aria-label="Participants list">
       {participants.map((p) => (
-        <p key={p.id} >{p.username}</p>
+        <p key={p.id} className='list-item-participant' >{p.username}</p>
       ))}
     </div>
   );
