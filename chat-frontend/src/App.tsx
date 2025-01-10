@@ -40,6 +40,21 @@ const App: React.FC = () => {
   const [view, setView] = useState<'participants' | 'chat'>('chat');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isRoomListOpen, setIsRoomListOpen] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+
+useEffect(() => {
+  ws.current = new WebSocket('ws://localhost:8080');
+
+  ws.current.onopen = () => {
+    console.log('Connected to WebSocket server');
+    setIsConnected(true);
+  };
+
+  return () => {
+    ws.current?.close();
+  };
+}, []);
+
 
   const ws = React.useRef<WebSocket | null>(null);
 
@@ -134,6 +149,8 @@ const App: React.FC = () => {
       ws.current.send(JSON.stringify({ type: 'new-message', text, roomId: currentRoom.id }));
     }
   };
+
+  
 
   return (
 <div

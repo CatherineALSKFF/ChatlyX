@@ -20,6 +20,27 @@ ChatlyX is a lightweight real-time chat application designed as part of a fronte
 - **Frontend:** React, TypeScript, CSS Modules
 - **Backend:** Node.js with WebSocket API
 - **Real-time Communication:** Native WebSocket
+- **Testing:** Jest (Unit Testing), Playwright (End-to-End Testing)
+
+---
+
+## 📂 Project Structure
+
+```
+chatly/
+├── chat-backend/       # Backend WebSocket server
+│   └── src/
+│       └── server.ts
+├── chat-frontend/      # React frontend
+│   ├── src/
+│   │   ├── components/  ├── __tests__/       # Jest tests
+│   │   ├── styles/
+│   │   └── App.tsx
+│   └── tests/
+│       
+│       └── e2e/        # Playwright tests
+└── README.md
+```
 
 ---
 
@@ -28,7 +49,7 @@ ChatlyX is a lightweight real-time chat application designed as part of a fronte
 ### Prerequisites
 
 Ensure you have the following installed on your machine:
-- **Node.js** (v16 or higher)
+- **Node.js** 
 - **npm** (or **yarn**)
 
 ### Installation
@@ -70,24 +91,44 @@ Ensure you have the following installed on your machine:
 
 ## 🧪 Testing Instructions
 
-### Test Real-time Messaging
-- Open the app on multiple devices or browser tabs.
-- Send messages and observe their synchronization across all clients.
 
-### Test Message Editing & Deletion
-- Edit or delete your own messages and verify updates across participants.
+### ✅ Completed Tests
+- **Jest Unit Tests:** Fully cover core components like message input, sidebar, and room list.
+- **Manual Testing:** All main features (messaging, editing, deleting, joining rooms) are verified.
 
-### Test Active Participants
-- Check the list of participants as users join or leave the chat.
+### 🔍 Further Testing (Optional)
+- Additional end-to-end tests (Playwright) were started but not fully implemented due to time constraints.  
+- Manual tests confirm all core functionalities work as intended.
+
+**Future Plan:**  
+- Complete full E2E test coverage for joining rooms and messaging.  
+- Optimize WebSocket handling in automated tests.
 
 ---
 
 ## 🕒 Time Spent
 
-- **1-2 hours:** Backend implementation (WebSocket server and API design).
-- **... hours:** Frontend implementation (UI components, styling, and integration).
-- **... hours:** Debugging, testing, and refinement.
+- **2 hours:** Backend development (WebSocket server, API setup)  
+- **3.5 hours:** Frontend development (UI components, styling, real-time features)  
+- **0.5 hours:** Debugging, manual testing, and code refinement  
 
-Total: **... hours**
+**Total:** **6 hours**
+
+---
+
+## ⚡ Potential Improvements
+
+If I had more time, I would:
+- Resolve the WebSocket connection issue in the Playwright tests.   
+- Implement additional features like emojis, image sharing, and dark mode.  
+- Optimize performance for large datasets and real-time scalability.
+
+---
+
+## 💬 Final Notes
+
+All core features of **ChatlyX** are fully functional and have been **manually tested**.  
+
+Thank you for reviewing my work! I look forward to discussing this project further in the interview. 😊
 
 ---

@@ -1,4 +1,4 @@
-/* Input container styles */
+/* Input container */
 .inputContainer {
   position: absolute;
   bottom: 0;
@@ -8,10 +8,9 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
-
 }
 
-/* Wrapper for the input field and send icon */
+/* Wrapper for the input and icons */
 .inputWrapper {
   position: relative;
   width: 100%;
@@ -19,13 +18,13 @@
   align-items: center;
 }
 
-/* Rounded input field */
+/* Input field */
 .messageInput {
   flex: 1;
-  padding: 15px 50px 15px 15px; /* Add padding for the icon */
+  padding: 15px 90px 15px 15px; 
   font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 30px; /* Ensures the input is rounded */
+  border-radius: 30px;
   outline: none;
   transition: border-color 0.3s ease;
   background-color: white;
@@ -35,10 +34,10 @@
   border-color: #007bff;
 }
 
-/* Send icon styling */
+
 .sendIcon {
   position: absolute;
-  right: 15px; /* Position inside the input field */
+  right: 15px;
   width: 24px;
   height: 24px;
   cursor: pointer;
@@ -46,5 +45,38 @@
 }
 
 .sendIcon:hover {
-  transform: scale(1.1); /* Slightly enlarge on hover */
+  transform: scale(1.1);
+}
+
+/* Emoji Icon (To the left of the send icon) */
+.emojiIcon {
+  position: absolute;
+  right: 50px; 
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.emojiIcon:hover {
+  transform: scale(1.1);
+}
+
+/* Emoji Picker Dropdown */
+.emojiPicker {
+  position: absolute;
+  bottom: 50px;
+  right: 10px;
+  z-index: 3000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.emojiPicker button:hover {
+  width: 32px !important;
+  height: 32px !important;
+  background-color: #f0f0f0 !important;
+  border-radius: 50px !important;
+  transform: scale(1.2) !important;
+  z-index: 3000;
 }

@@ -60,6 +60,7 @@ const RoomList: React.FC<RoomListProps> = ({
         {rooms.map((room) => (
           <li
             key={room.id}
+            data-testid={`room-item-${room.id}`} 
             className={`${styles.listItem} ${
               currentRoom?.id === room.id ? styles.active : ''
             }`}
