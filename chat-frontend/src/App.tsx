@@ -114,8 +114,10 @@ const App: React.FC = () => {
   const joinRoom = (roomId: string) => {
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
       ws.current.send(JSON.stringify({ type: 'join-room', roomId }));
+      setIsRoomListOpen(false); // Close the room list after joining a room
     }
   };
+  
 
   const createRoom = () => {
     if (ws.current && ws.current.readyState === WebSocket.OPEN && newRoomName.trim()) {
@@ -152,7 +154,7 @@ const App: React.FC = () => {
 <div className={`contentContainer ${isMobile ? 'mobileContent' : 'desktopContent'}`}>
   {!isUsernameSet ? (
     <div className="usernameContainer">
-      <h1>Choose a Username</h1>
+      <h1>Choose a username</h1>   
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -166,7 +168,7 @@ const App: React.FC = () => {
           placeholder="Enter your username"
           required
         />
-        <button type="submit">Join</button>
+        <button type="submit" className='join-btn'>Join</button>
       </form>
     </div>
   ) : (
@@ -177,6 +179,7 @@ const App: React.FC = () => {
           view={view}
           setView={setView}
           toggleRoomList={toggleRoomList}
+          // closeRoomList={() => setIsRoomListOpen(false)}
         />
       )}
       {isMobile && isRoomListOpen && (

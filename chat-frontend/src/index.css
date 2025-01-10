@@ -4,3 +4,14 @@ body {
     background-color: #f4f4f4;
   }
   
+/* Button  Styling */
+button {
+  padding: 8px 12px; 
+  border: none;
+  background-color: #4c9aee;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+} 

@@ -11,7 +11,7 @@ type NavbarProps = {
   currentRoom: Room | null;
   view: 'participants' | 'chat';
   setView: (view: 'participants' | 'chat') => void;
-  toggleRoomList: () => void; // Function to toggle room list
+  toggleRoomList: () => void;
 };
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -26,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({
         src="/icons/chat-icon.svg"
         alt="Chat Icon"
         className={styles.navbarIcon}
-        onClick={toggleRoomList} // Attach toggleRoomList function
+        onClick={toggleRoomList}
       />
       <div className={styles.title}>{currentRoom?.name || 'No Room Selected'}</div>
       <div className={styles.navButtons}>
