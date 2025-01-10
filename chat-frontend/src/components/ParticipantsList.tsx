@@ -11,10 +11,9 @@ type ParticipantsListProps = {
 
 const ParticipantsList: React.FC<ParticipantsListProps> = ({ participants }) => {
   return (
-    <div>
-      <h3>Participants</h3>
+    <div aria-label="Participants list">
       {participants.map((p) => (
-        <p key={p.id}>{p.username}</p>
+        <p key={p.id} >{p.username}</p>
       ))}
     </div>
   );

@@ -136,9 +136,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`appContainer ${isMobile ? 'mobile' : 'desktop'}`}>
+<div
+      className={`appContainer ${isMobile ? 'mobile' : 'desktop'}`}
+      role="application"
+      aria-label="Chatly X Application"
+    >
       {isUsernameSet && !isMobile && (
-        <div className="sidebarContainer">
+        <div className="sidebarContainer" role="complementary" aria-label="Sidebar">
           <Sidebar
             rooms={rooms}
             currentUsername={username}
@@ -151,97 +155,107 @@ const App: React.FC = () => {
           />
         </div>
       )}
-<div className={`contentContainer ${isMobile ? 'mobileContent' : 'desktopContent'}`}>
-  {!isUsernameSet ? (
-    <div className="usernameContainer">
-      <h1>Choose a username</h1>   
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          sendUsername();
-        }}
+      <div
+        className={`contentContainer ${isMobile ? 'mobileContent' : 'desktopContent'}`}
+        role="main"
+        aria-label="Main Content"
       >
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Enter your username"
-          required
-        />
-        <button type="submit" className='join-btn'>Join</button>
-      </form>
-    </div>
-  ) : (
-    <>
-      {isMobile && currentRoom && (
-        <Navbar
-          currentRoom={currentRoom}
-          view={view}
-          setView={setView}
-          toggleRoomList={toggleRoomList}
-          // closeRoomList={() => setIsRoomListOpen(false)}
-        />
-      )}
-      {isMobile && isRoomListOpen && (
-        <div className="roomListContainer">
-          <RoomList
-            rooms={rooms}
-            currentRoom={currentRoom}
-            joinRoom={joinRoom}
-            createRoom={createRoom}
-            newRoomName={newRoomName}
-            setNewRoomName={setNewRoomName}
-          />
-        </div>
-      )}
-      {currentRoom && (
-        <div className="mainContent">
-          {view === 'participants' ? (
-            <ParticipantsList participants={participants} />
-          ) : (
-            <>
-              <MessageList
-                messages={messages}
-                startEditingMessage={(id, text) => {
-                  setEditingMessageId(id);
-                  setEditingText(text);
-                }}
-                deleteMessage={(id) => {
-                  if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-                    ws.current.send(JSON.stringify({ type: 'delete-message', id }));
-                  }
-                }}
-                editingMessageId={editingMessageId}
-                editingText={editingText}
-                setEditingText={setEditingText}
-                saveEditedMessage={() => {
-                  if (
-                    ws.current &&
-                    ws.current.readyState === WebSocket.OPEN &&
-                    editingMessageId
-                  ) {
-                    ws.current.send(
-                      JSON.stringify({
-                        type: 'edit-message',
-                        id: editingMessageId,
-                        text: editingText,
-                      })
-                    );
-                    setEditingMessageId(null);
-                    setEditingText('');
-                  }
-                }}
-                currentUsername={username}
+        {!isUsernameSet ? (
+          <div className="usernameContainer" role="region" aria-labelledby="choose-username">
+            <h1 id="choose-username">Choose a username</h1>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                sendUsername();
+              }}
+              aria-label="Username Selection Form"
+            >
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter your username"
+                aria-label="Enter your username"
+                required
               />
-              <MessageInput sendMessage={sendMessage} />
-            </>
-          )}
-        </div>
-      )}
-    </>
-  )}
-</div>
-
+              <button type="submit" className="join-btn" aria-label="Join Chat">
+                Join
+              </button>
+            </form>
+          </div>
+        ) : (
+          <>
+            {isMobile && currentRoom && (
+              <Navbar
+                currentRoom={currentRoom}
+                view={view}
+                setView={setView}
+                toggleRoomList={toggleRoomList}
+              />
+            )}
+            {isMobile && isRoomListOpen && (
+              <div
+                className="roomListContainer"
+                role="dialog"
+                aria-label="Room List"
+              >
+                <RoomList
+                  rooms={rooms}
+                  currentRoom={currentRoom}
+                  joinRoom={joinRoom}
+                  createRoom={createRoom}
+                  newRoomName={newRoomName}
+                  setNewRoomName={setNewRoomName}
+                />
+              </div>
+            )}
+            {currentRoom && (
+              <div className="mainContent" role="region" aria-labelledby="chat-region">
+                {view === 'participants' ? (
+                  <ParticipantsList participants={participants} />
+                ) : (
+                  <>
+                    <MessageList
+                      messages={messages}
+                      startEditingMessage={(id, text) => {
+                        setEditingMessageId(id);
+                        setEditingText(text);
+                      }}
+                      deleteMessage={(id) => {
+                        if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+                          ws.current.send(JSON.stringify({ type: 'delete-message', id }));
+                        }
+                      }}
+                      editingMessageId={editingMessageId}
+                      editingText={editingText}
+                      setEditingText={setEditingText}
+                      saveEditedMessage={() => {
+                        if (
+                          ws.current &&
+                          ws.current.readyState === WebSocket.OPEN &&
+                          editingMessageId
+                        ) {
+                          ws.current.send(
+                            JSON.stringify({
+                              type: 'edit-message',
+                              id: editingMessageId,
+                              text: editingText,
+                            })
+                          );
+                          setEditingMessageId(null);
+                          setEditingText('');
+                        }
+                      }}
+                      currentUsername={username}
+                    />
+                    <MessageInput sendMessage={sendMessage} />
+                  </>
+                )}
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

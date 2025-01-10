@@ -42,12 +42,12 @@ const Sidebar: React.FC<SidebarProps> = ({
   const roomList = [ ...rooms];
 
   return (
-    <div className={styles.sidebar}>
+    <aside className={styles.sidebar} aria-label="Sidebar">
       <div className={styles.title}>CHATLY X</div>
       <hr className={styles.separator} />
 
       {/* Rooms Section */}
-      <div className={styles.section}>
+      <div className={styles.section} aria-labelledby="chat-rooms-heading">
         <h3 className={styles.roomHeader}>
           Chat Rooms
           <img
@@ -55,6 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             alt="Create Room"
             className={styles.plusIcon}
             onClick={() => setShowCreateRoom((prev) => !prev)}
+            aria-label="Create a new chat room"
           />
         </h3>
         {showCreateRoom && (
@@ -65,13 +66,14 @@ const Sidebar: React.FC<SidebarProps> = ({
               onChange={(e) => setNewRoomName(e.target.value)}
               placeholder="Room name"
               className={styles.roomInput}
+              aria-label="Room name input"
             />
-            <button onClick={createRoom} className={styles.createRoomButton}>
+            <button onClick={createRoom} className={styles.createRoomButton} aria-label="Confirm room creation">
               Create
             </button>
           </div>
         )}
-        <ul className={styles.list}>
+        <ul className={styles.list} aria-label="List of available chat rooms">
           {roomList.map((room) => (
             <li
               key={room.id}
@@ -79,6 +81,9 @@ const Sidebar: React.FC<SidebarProps> = ({
                 currentRoom?.id === room.id ? styles.active : ''
               }`}
               onClick={() => joinRoom(room.id)}
+              role="button"
+              aria-pressed={currentRoom?.id === room.id}
+              aria-label={`Join ${room.name} room${room.unreadCount > 0 ? `, ${room.unreadCount} new messages` : ''}`}
             >
               {room.name}
               {room.unreadCount > 0 && currentRoom?.id !== room.id && (
@@ -92,11 +97,11 @@ const Sidebar: React.FC<SidebarProps> = ({
       <hr className={styles.sectionSeparator} />
 
       {/* Participants Section */}
-      <div className={styles.section}>
+      <div className={styles.section} aria-labelledby="participants-heading">
         <h3>Participants</h3>
-        <ul className={styles.list}>
+        <ul className={styles.list} aria-label="List of participants">
           {participants.map((participant) => (
-            <li key={participant.id} className={styles.participant}>
+            <li key={participant.id} className={styles.participant}  aria-label={`${participant.username} ${participant.username === currentUsername ? '(You)' : ''}`}>
               {participant.username}{' '}
               {participant.username === currentUsername && (
                 <span className={styles.meTag}>(me)</span>
@@ -105,7 +110,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           ))}
         </ul>
       </div>
-    </div>
+    </aside>
   );
 };
 

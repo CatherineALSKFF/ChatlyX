@@ -27,7 +27,7 @@ const RoomList: React.FC<RoomListProps> = ({
   const [isCreatingRoom, setIsCreatingRoom] = useState(false);
 
   return (
-    <div className={styles.roomList}>
+    <div className={styles.roomList} aria-labelledby="chat-rooms-heading">
       <div className={styles.title}>
         Chat Rooms
         <img
@@ -35,6 +35,7 @@ const RoomList: React.FC<RoomListProps> = ({
           alt="Add Room"
           className={styles.addIcon}
           onClick={() => setIsCreatingRoom((prev) => !prev)}
+          aria-label="Add a new chat room"
         />
       </div>
       <hr className={styles.separator} />
@@ -47,14 +48,15 @@ const RoomList: React.FC<RoomListProps> = ({
             onChange={(e) => setNewRoomName(e.target.value)}
             placeholder="Room name"
             className={styles.roomInput}
+            aria-label="Enter new room name"
           />
-          <button onClick={createRoom} className={styles.createRoomButton}>
+          <button onClick={createRoom} className={styles.createRoomButton} aria-label="Create chat room">
             Create
           </button>
         </div>
       )}
 
-      <ul className={styles.list}>
+      <ul className={styles.list} aria-label="List of available chat rooms">
         {rooms.map((room) => (
           <li
             key={room.id}
@@ -62,10 +64,15 @@ const RoomList: React.FC<RoomListProps> = ({
               currentRoom?.id === room.id ? styles.active : ''
             }`}
             onClick={() => joinRoom(room.id)}
+            role="button"
+            aria-pressed={currentRoom?.id === room.id}
+        aria-label={`Join ${room.name} room ${
+          room.unreadCount > 0 ? `, ${room.unreadCount} new messages` : ''
+        }`}
           >
             {room.name}
             {room.unreadCount > 0 && currentRoom?.id !== room.id && (
-              <span className={styles.unread}>({room.unreadCount} new)</span>
+              <span className={styles.unread} >({room.unreadCount} new)</span>
             )}
           </li>
         ))}

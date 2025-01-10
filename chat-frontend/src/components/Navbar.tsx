@@ -21,31 +21,37 @@ const Navbar: React.FC<NavbarProps> = ({
   toggleRoomList,
 }) => {
   return (
-    <div className={styles.navbar}>
-      <img
-        src="/icons/chat-icon.svg"
-        alt="Chat Icon"
-        className={styles.navbarIcon}
-        onClick={toggleRoomList}
-      />
-      <div className={styles.title}>{currentRoom?.name || 'No Room Selected'}</div>
+    <div className={styles.navbar} aria-label="Main navigation bar">
+      <div className={styles.title}>CHATLY X</div>
+      <div className={styles.roomName} onClick={toggleRoomList} aria-label="Toggle room list" >
+        {currentRoom?.name || 'No Room Selected'}
+        <img
+          src="/icons/arrow-icon.svg"
+          alt="Toggle Room List"
+          className={styles.arrowIcon}
+          aria-label="Dropdown to view or create chat rooms"
+          
+        />
+      </div>
       <div className={styles.navButtons}>
-        <button
-          className={`${styles.navButton} ${
+        <span
+          className={`${styles.navButton} ${styles.left} ${
             view === 'participants' ? styles.active : ''
           }`}
           onClick={() => setView('participants')}
+          aria-label="Switch to participants view"
         >
           Participants
-        </button>
-        <button
-          className={`${styles.navButton} ${
+        </span>
+        <span
+          className={`${styles.navButton} ${styles.right} ${
             view === 'chat' ? styles.active : ''
           }`}
           onClick={() => setView('chat')}
+          aria-label="Switch to chat view"
         >
           Chat
-        </button>
+        </span>
       </div>
     </div>
   );

@@ -7,75 +7,93 @@
   background: linear-gradient(90deg, #007bff, #0056b3);
   color: white;
   z-index: 1000;
-  padding: 20px 15px;
+  /* padding:15px 0px ; */
+  padding-top: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.navbarIcon {
-  position: absolute;
-  top: 10px;
-  left: 15px;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-}
-
 .title {
   font-size: 22px;
   font-weight: bold;
+  text-align: center;
   margin-bottom: 10px;
 }
 
+.roomName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; 
+  font-size: 16px;
+  font-weight: normal;
+  cursor: pointer;
+  border-top:0.2px rgb(158, 210, 255) solid;
+  padding: 15px 0;
+}
+
+.arrowIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+
 .navButtons {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .navButton {
-  width: 120px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: none;
-  padding: 10px;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
+  flex: 1;
   text-align: center;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  padding:15px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .navButton:hover {
-  background-color: white;
-  transform: scale(1.1);
+  color: #0056b3;
 }
 
 .navButton.active {
-  background-color: #ffffff;
+  color: #0056b3;
+  font-weight: bolder;
+}
+.navButton.left {
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.navButton.right {
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+}
+
+.navButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navButton.active {
+  background-color: rgb(209, 232, 248);
   color: #007bff;
-  font-weight: bold;
 }
 
-/* Room list toggle container */
-.roomListContainer {
-  position: fixed;
-  top: 200px; 
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  z-index: 999;
-  transform: translateY(-100%);
-  transition: transform 0.4s ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.navButton.active.left {
+  border-top-right-radius: 20px;
 }
 
-.roomListContainer.open {
-  transform: translateY(0); 
+.navButton.active.right {
+  border-top-left-radius: 20px;
 }

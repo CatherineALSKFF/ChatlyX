@@ -67,7 +67,7 @@ const MessageList: React.FC<MessageListProps> = ({
   const isCurrentUser = (user: string) => user === currentUsername;
 
   return (
-    <div className={styles.messageList} ref={messageListRef}>
+    <div className={styles.messageList} ref={messageListRef} aria-live="polite">
       {messages.map((msg) => {
         const rowClass = isCurrentUser(msg.user)
           ? styles.currentUserRow
@@ -76,9 +76,10 @@ const MessageList: React.FC<MessageListProps> = ({
         return (
           <div key={msg.id} className={`${styles.messageRow} ${rowClass}`}>
             <div
-              className={`${styles.message} ${
-                isCurrentUser(msg.user) ? styles.currentUser : styles.otherUser
-              }`}
+              className={`${styles.message} ${isCurrentUser(msg.user) ? styles.currentUser : styles.otherUser
+                }`}
+                role="group"
+              aria-label={`Message from ${msg.user}`}
             >
               {isCurrentUser(msg.user) && (
                 <>
@@ -89,17 +90,23 @@ const MessageList: React.FC<MessageListProps> = ({
                     onClick={() =>
                       setVisibleMenuId((prevId) => (prevId === msg.id ? null : msg.id))
                     }
+                    aria-label="Open message options"
                   />
                   {visibleMenuId === msg.id && (
-                    <div className={styles.menuOptions} ref={menuRef}>
+                    <div 
+                    className={styles.menuOptions} 
+                    ref={menuRef} 
+                    role="menu"
+                    aria-label="Message options">
                       <button
                         onClick={() => handleMenuAction('edit', msg.id, msg.text)}
                         disabled={msg.deleted} // Disable if message is deleted
                         className={msg.deleted ? styles.disabledButton : ''}
+                        aria-label="Edit this message"
                       >
                         Edit
                       </button>
-                      <button onClick={() => handleMenuAction('delete', msg.id)}>
+                      <button onClick={() => handleMenuAction('delete', msg.id)} aria-label="Delete this message">
                         Delete
                       </button>
                     </div>
@@ -108,29 +115,45 @@ const MessageList: React.FC<MessageListProps> = ({
               )}
               {editingMessageId === msg.id ? (
                 <div className={styles.editContainer}>
-                  <div className={styles.editPopup}>
+                  <div className={styles.editPopup} role="dialog"
+                    aria-labelledby={`edit-label-${msg.id}`}
+                    aria-modal="true">
+                    {/* Close Icon */}
                     <img
                       src="/icons/exit-icon.svg"
-                      alt="Close"
+                      alt="Close Edit Popup"
                       className={styles.popupCloseIcon}
                       onClick={() => {
-                        setEditingText(''); // Clear the text
-                        setVisibleMenuId(null); // Close menu
-                        startEditingMessage('', ''); // Exit editing mode
+                        setEditingText('');
+                        setVisibleMenuId(null);
+                        startEditingMessage('', '');
                       }}
+                      aria-label="Cancel editing"
                     />
+
+                    {/* Label for Input */}
+                    <label htmlFor={`edit-text-${msg.id}`} className={styles.editLabel} id={`edit-label-${msg.id}`}>
+                      Edit your message
+                    </label>
+
+                    {/* Input Field */}
                     <input
+                      id={`edit-text-${msg.id}`}
                       type="text"
                       value={editingText}
                       onChange={(e) => setEditingText(e.target.value)}
                       className={styles.editInput}
-                      placeholder="Edit your message..."
+                      placeholder="Update your message..."
+                      aria-label="Edit your message"
                     />
+
+                    {/* Save Button */}
                     <button
                       onClick={saveEditedMessage}
                       className={styles.saveButton}
+                      aria-label="Save changes"
                     >
-                      Save
+                      Save Changes
                     </button>
                   </div>
                 </div>
@@ -139,17 +162,18 @@ const MessageList: React.FC<MessageListProps> = ({
                   <p className={styles.senderName}>{msg.user}</p>
                   <p className={styles.messageContent}>
                     {msg.deleted ? (
-                      <span className={styles.deletedMessage}>
-                        Message deleted
-                      </span>
+                      <span className={styles.deletedMessage}>Message deleted</span>
                     ) : (
                       msg.text
                     )}
-                    {msg.edited && (
-                      <span className={styles.editedTag}> (edited)</span>
-                    )}
+                    {msg.edited && <span className={styles.editedTag}> (edited)</span>}
                   </p>
-                  <div className={styles.timestampHover}>
+                  <div 
+                  className={styles.timestampHover}
+                  aria-label={`Sent at ${new Date(msg.timestamp).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}`}>
                     {new Date(msg.timestamp).toLocaleTimeString([], {
                       hour: '2-digit',
                       minute: '2-digit',
@@ -157,6 +181,7 @@ const MessageList: React.FC<MessageListProps> = ({
                   </div>
                 </div>
               )}
+
             </div>
           </div>
         );

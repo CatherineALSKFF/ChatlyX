@@ -31,12 +31,14 @@ const MessageInput: React.FC<MessageInputProps> = ({ sendMessage }) => {
           onKeyPress={handleKeyPress}
           placeholder="Type a message..."
           className={styles.messageInput}
+          aria-label="Message input field"
         />
         <img
           src="/icons/send-icon.svg"
           alt="Send"
           className={styles.sendIcon}
           onClick={handleSend}
+          aria-label="Send message"
         />
       </div>
     </div>
