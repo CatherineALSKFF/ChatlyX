@@ -128,7 +128,6 @@ Ensure you have the following installed on your machine:
 Given more time, I would:
 
 - **Complete E2E Testing** for message syncing across devices.  
-- **Enhance the Emoji Picker** with categories and search.  
 - **Implement Link Previews** for URLs shared in the chat *(Bonus Task)*.  
 - **Optimize Performance** using virtualized lists for large message datasets.  
 - **Add Dark Mode and Themes** to improve UX.
