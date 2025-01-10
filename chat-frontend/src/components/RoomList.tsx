@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styles from '../styles/components/RoomList.module.css';
 
 type Room = {
   id: string;
@@ -23,24 +24,52 @@ const RoomList: React.FC<RoomListProps> = ({
   newRoomName,
   setNewRoomName,
 }) => {
+  const [isCreatingRoom, setIsCreatingRoom] = useState(false);
+
   return (
-    <div>
-      <h2>Available Rooms</h2>
-      <input
-        type="text"
-        value={newRoomName}
-        onChange={(e) => setNewRoomName(e.target.value)}
-        placeholder="Room name"
-      />
-      <button onClick={createRoom}>Create Room</button>
-      {rooms.map((room) => (
-        <div key={room.id}>
-          <p>
-            {room.name} {room.unreadCount > 0 && `(${room.unreadCount} new)`}
-          </p>
-          <button onClick={() => joinRoom(room.id)}>Join</button>
+    <div className={styles.roomList}>
+      <div className={styles.title}>
+        Chat Rooms
+        <img
+          src="/icons/plus-icon-light.svg"
+          alt="Add Room"
+          className={styles.addIcon}
+          onClick={() => setIsCreatingRoom((prev) => !prev)}
+        />
+      </div>
+      <hr className={styles.separator} />
+
+      {isCreatingRoom && (
+        <div className={styles.createRoom}>
+          <input
+            type="text"
+            value={newRoomName}
+            onChange={(e) => setNewRoomName(e.target.value)}
+            placeholder="Room name"
+            className={styles.roomInput}
+          />
+          <button onClick={createRoom} className={styles.createRoomButton}>
+            Create
+          </button>
         </div>
-      ))}
+      )}
+
+      <ul className={styles.list}>
+        {rooms.map((room) => (
+          <li
+            key={room.id}
+            className={`${styles.listItem} ${
+              currentRoom?.id === room.id ? styles.active : ''
+            }`}
+            onClick={() => joinRoom(room.id)}
+          >
+            {room.name}
+            {room.unreadCount > 0 && currentRoom?.id !== room.id && (
+              <span className={styles.unread}>({room.unreadCount} new)</span>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

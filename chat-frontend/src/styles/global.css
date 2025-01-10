@@ -107,3 +107,33 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+
+
+
+
+/* Content styling specific to mobile */
+@media (max-width: 768px) {
+  .mobileContent {
+    padding-top: 80px; /* Push content below the navbar */
+  }
+
+  .usernameContainer {
+    margin-top: 20px;
+  }
+
+  .roomListContainer {
+    position: absolute;
+    top: 100px; /* Ensure it appears below the navbar */
+    left: 0;
+    right: 0; /* Align it to fit within the viewport */
+    width: 100%; /* Use full width of the parent container */
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+    padding: 20px;
+    border-radius: 15px;
+    box-sizing: border-box; /* Include padding in width calculation */
+    overflow-y: auto; /* Allow scrolling if content exceeds height */
+  }
+  
+}

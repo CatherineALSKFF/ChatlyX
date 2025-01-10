@@ -4,6 +4,7 @@ import MessageInput from './components/MessageInput';
 import MessageList from './components/MessageList';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import RoomList from './components/RoomList';
 import './styles/global.css';
 
 type Message = {
@@ -23,7 +24,7 @@ type Participant = {
 type Room = {
   id: string;
   name: string;
-  unreadCount: number; // Unread message count for each room
+  unreadCount: number;
 };
 
 const App: React.FC = () => {
@@ -38,6 +39,7 @@ const App: React.FC = () => {
   const [editingText, setEditingText] = useState<string>('');
   const [view, setView] = useState<'participants' | 'chat'>('chat');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isRoomListOpen, setIsRoomListOpen] = useState(false);
 
   const ws = React.useRef<WebSocket | null>(null);
 
@@ -122,6 +124,9 @@ const App: React.FC = () => {
     }
   };
 
+  const toggleRoomList = () => {
+    setIsRoomListOpen((prev) => !prev);
+  };
   const sendMessage = (text: string) => {
     if (ws.current && ws.current.readyState === WebSocket.OPEN && currentRoom) {
       ws.current.send(JSON.stringify({ type: 'new-message', text, roomId: currentRoom.id }));
@@ -133,7 +138,6 @@ const App: React.FC = () => {
       {isUsernameSet && !isMobile && (
         <div className="sidebarContainer">
           <Sidebar
-
             rooms={rooms}
             currentUsername={username}
             participants={participants}
@@ -145,82 +149,96 @@ const App: React.FC = () => {
           />
         </div>
       )}
-      <div className={`contentContainer ${!isMobile ? 'withSidebar' : ''}`}>
-        {!isUsernameSet ? (
-          <div className="usernameContainer">
-            <h1>Choose a Username</h1>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                sendUsername();
-              }}
-            >
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
-                required
+<div className={`contentContainer ${isMobile ? 'mobileContent' : 'desktopContent'}`}>
+  {!isUsernameSet ? (
+    <div className="usernameContainer">
+      <h1>Choose a Username</h1>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          sendUsername();
+        }}
+      >
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Enter your username"
+          required
+        />
+        <button type="submit">Join</button>
+      </form>
+    </div>
+  ) : (
+    <>
+      {isMobile && currentRoom && (
+        <Navbar
+          currentRoom={currentRoom}
+          view={view}
+          setView={setView}
+          toggleRoomList={toggleRoomList}
+        />
+      )}
+      {isMobile && isRoomListOpen && (
+        <div className="roomListContainer">
+          <RoomList
+            rooms={rooms}
+            currentRoom={currentRoom}
+            joinRoom={joinRoom}
+            createRoom={createRoom}
+            newRoomName={newRoomName}
+            setNewRoomName={setNewRoomName}
+          />
+        </div>
+      )}
+      {currentRoom && (
+        <div className="mainContent">
+          {view === 'participants' ? (
+            <ParticipantsList participants={participants} />
+          ) : (
+            <>
+              <MessageList
+                messages={messages}
+                startEditingMessage={(id, text) => {
+                  setEditingMessageId(id);
+                  setEditingText(text);
+                }}
+                deleteMessage={(id) => {
+                  if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+                    ws.current.send(JSON.stringify({ type: 'delete-message', id }));
+                  }
+                }}
+                editingMessageId={editingMessageId}
+                editingText={editingText}
+                setEditingText={setEditingText}
+                saveEditedMessage={() => {
+                  if (
+                    ws.current &&
+                    ws.current.readyState === WebSocket.OPEN &&
+                    editingMessageId
+                  ) {
+                    ws.current.send(
+                      JSON.stringify({
+                        type: 'edit-message',
+                        id: editingMessageId,
+                        text: editingText,
+                      })
+                    );
+                    setEditingMessageId(null);
+                    setEditingText('');
+                  }
+                }}
+                currentUsername={username}
               />
-              <button type="submit">Join</button>
-            </form>
-          </div>
-        ) : (
-          <>
-            {currentRoom && isMobile && (
-              <Navbar
-                currentRoom={currentRoom.name}
-                view={view}
-                setView={setView}
-              />
-            )}
-            {currentRoom && (
-              <div className="mainContent">
-                {view === 'participants' ? (
-                  <ParticipantsList participants={participants} />
-                ) : (
-                  <>
-                    <MessageList
-                      messages={messages}
-                      startEditingMessage={(id, text) => {
-                        setEditingMessageId(id);
-                        setEditingText(text);
-                      }}
-                      deleteMessage={(id) => {
-                        if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-                          ws.current.send(JSON.stringify({ type: 'delete-message', id }));
-                        }
-                      }}
-                      editingMessageId={editingMessageId}
-                      editingText={editingText}
-                      setEditingText={setEditingText}
-                      saveEditedMessage={() => {
-                        if (
-                          ws.current &&
-                          ws.current.readyState === WebSocket.OPEN &&
-                          editingMessageId
-                        ) {
-                          ws.current.send(
-                            JSON.stringify({
-                              type: 'edit-message',
-                              id: editingMessageId,
-                              text: editingText,
-                            })
-                          );
-                          setEditingMessageId(null);
-                          setEditingText('');
-                        }
-                      }}
-                      currentUsername={username}
-                    />
-                    <MessageInput sendMessage={sendMessage} />
-                  </>
-                )}
-              </div>
-            )}
-          </>
-        )}
-      </div>
+              <MessageInput sendMessage={sendMessage} />
+            </>
+          )}
+        </div>
+      )}
+    </>
+  )}
+</div>
+
     </div>
   );
 };
